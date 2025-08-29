@@ -30,34 +30,30 @@ The project was developed using the following technologies:
 * **SQLite:** For local development.
 
 ### Running the project
-Follow these instructions to run the project on your computer:
+Follow these instructions to run the project on your computer using Docker:
 
 1.  **Clone the repository:**
     ```bash
     git clone [https://github.com/Maryna-cell/online-education-platform.git](https://github.com/Maryna-cell/online-education-platform.git)
     cd educa
     ```
-2.  **Create and activate a virtual environment:**
+2.  **Build the Docker images:**
     ```bash
-    python -m venv venv
-    # For Windows:
-    C:\Users\Admin\PycharmProjects\Education>env\educa\Scripts\activate
-    # For macOS/Linux:
-    source venv/bin/activate
+    docker-compose build
     ```
-3.  **Install dependencies:**
+3.  **Run the containers:**
     ```bash
-    pip install -r requirements.txt
+    docker-compose up -d
     ```
-4.  **Apply migrations:**
+4.  **Apply database migrations:**
     ```bash
-    python manage.py migrate
+    docker-compose exec web python manage.py migrate
     ```
-5.  **Run the Django server:**
+5.  **Create a superuser (optional):**
     ```bash
-    python manage.py runserver
+    docker-compose exec web python manage.py createsuperuser
     ```
-The project will be available in your browser at `http://127.0.0.1:8000/`.
+The project will be available in your browser at `http://127.0.0.1:8000/` or a custom domain configured in NGINX.
 
 ---
-**Note:** For the asynchronous features (chat) to work correctly, a Redis server must be running.
+**Note:** For the asynchronous features (chat) to work correctly, a Redis container is automatically configured and run by Docker Compose.
